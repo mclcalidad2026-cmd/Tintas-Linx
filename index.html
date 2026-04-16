@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Portal Documentación MCL 2026</title>
+    <style>
+        :root { 
+            --mcl-blue: #004b8d; 
+            --mcl-green: #a6ce39; 
+            --bg-light: #f4f7f9;
+        }
+        
+        /* FIX PARA IOS: Prevenir rebotes y permitir scroll fluido */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-light);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* ENCABEZADO */
+        header { 
+            background: white; 
+            padding: 10px 15px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 4px solid var(--mcl-blue);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo-mcl img { height: 45px; width: auto; display: block; } 
+
+        .slogan { text-align: right; }
+        .slogan-year { font-size: 20px; font-weight: 900; color: var(--mcl-blue); line-height: 1; }
+        .slogan-text { font-weight: bold; color: var(--mcl-blue); font-size: 11px; text-transform: uppercase; }
+
+        /* NAVEGACIÓN TOUCH-FRIENDLY */
+        nav { 
+            background: var(--mcl-blue); 
+            display: flex; 
+            position: sticky;
+            top: 69px; /* Justo debajo del header */
+            z-index: 999;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        nav button { 
+            background: none; border: none; color: white; padding: 15px 20px; 
+            cursor: pointer; font-weight: bold; font-size: 13px; 
+            transition: 0.3s; border-bottom: 4px solid transparent;
+            flex: 1; min-width: 160px;
+        }
+        
+        nav button.active { 
+            background: rgba(255,255,255,0.1); 
+            border-bottom: 4px solid var(--mcl-green); 
+            color: var(--mcl-green); 
+        }
+
+        /* CONTENEDOR */
+        .container { 
+            padding: 15px;
+            box-sizing: border-box;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section { display: none; width: 100%; }
+        .section.active { display: block; }
+
+        /* ESTILO PARA VISUALIZACIÓN DE PDF */
+        .pdf-wrapper {
+            position: relative;
+            width: 100%;
+            height: 70vh; /* Altura en móviles */
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none;
+        }
+
+        /* BOTÓN PANTALLA COMPLETA (Crucial para móviles) */
+        .btn-fullscreen {
+            display: block;
+            width: 100%;
+            background: var(--mcl-green);
+            color: var(--mcl-blue);
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        /* BUSCADOR */
+        .search-container { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            border-bottom: 4px solid var(--mcl-green); 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+        }
+        
+        .search-group { display: flex; flex-direction: column; gap: 10px; }
+
+        input { 
+            padding: 14px; width: 100%; border: 2px solid #ddd; border-radius: 5px; 
+            font-size: 16px; outline: none; box-sizing: border-box;
+            -webkit-appearance: none; /* Quita estilos por defecto en iOS */
+        }
+        
+        .btn-search { 
+            padding: 14px; background: var(--mcl-blue); color: white; border: none; 
+            border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px; 
+        }
+
+        /* MEDIA QUERIES PARA PC */
+        @media (min-width: 768px) {
+            header { padding: 15px 50px; }
+            .logo-mcl img { height: 70px; }
+            .search-group { flex-direction: row; }
+            .btn-search { width: 200px; }
+            .pdf-wrapper { height: 1000px; }
+            .btn-fullscreen { display: none; } /* Ocultar en PC */
+        }
+
+        .placeholder-text { color: #888; text-align: center; margin-top: 40px; font-style: italic; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-mcl">
+        <img src="MC LOGO.png" alt="Logo MCL"> 
+    </div>
+    <div class="slogan">
+        <div class="slogan-year">2026</div>
+        <div class="slogan-text">Integra • Optimiza • Crece</div>
+    </div>
+</header>
+
+<nav>
+    <button onclick="tab('p', this)" class="active">1. POLÍTICA DE CAMBIOS</button>
+    <button onclick="tab('h', this)">2. HOJAS DE SEGURIDAD</button>
+</nav>
+
+<div class="container">
+    
+    <!-- SECCIÓN POLÍTICA -->
+    <div id="p" class="section active">
+        <h3 style="color: var(--mcl-blue); margin-top: 0;">Política de Cambios y Devoluciones_clientes</h3>
+        <!-- Link alternativo para iPhone -->
+        <a href="Politica de Cambios y Devoluciones_clientes.pdf" target="_blank" class="btn-fullscreen">Abrir Documento Completo ↗</a>
+        
+        <div class="pdf-wrapper">
+            <iframe src="Politica de Cambios y Devoluciones_clientes.pdf"></iframe>
+        </div>
+    </div>
+
+    <!-- SECCIÓN HOJAS DE SEGURIDAD -->
+    <div id="h" class="section">
+        <div class="search-container">
+            <div class="search-group">
+                <input type="text" id="inputSeguridad" placeholder="Ingresa código (Ej: 1392, B101)..." onkeyup="if(event.key==='Enter') buscarHoja()">
+                <button class="btn-search" onclick="buscarHoja()">BUSCAR</button>
+            </div>
+        </div>
+        
+        <div id="resultadoSeguridad">
+            <p id="msgSeguridad" class="placeholder-text">Ingresa el código del producto para visualizar el documento.</p>
+            
+            <!-- Link alternativo dinámico para iPhone -->
+            <a id="linkExterno" href="#" target="_blank" class="btn-fullscreen" style="display: none;">Ver en Pantalla Completa ↗</a>
+            
+            <div id="pdfWrapperSeguridad" class="pdf-wrapper" style="display: none;">
+                <iframe id="visorSeguridad" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Función para cambiar de pestañas
+    function tab(id, btn) {
+        window.scrollTo(0, 0);
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    // Buscador de Hojas de Seguridad
+    function buscarHoja() {
+        const query = document.getElementById('inputSeguridad').value.trim().toUpperCase();
+        const visor = document.getElementById('visorSeguridad');
+        const wrapper = document.getElementById('pdfWrapperSeguridad');
+        const mensaje = document.getElementById('msgSeguridad');
+        const link = document.getElementById('linkExterno');
+
+        const hojas = {
+            "1392": "[1392][linx black plastic-adherent ink 1392][4][en-GB].pdf",
+            "1393": "[1393][linx black retort ink 1393][6][en-GB].pdf",
+            "1405": "[1405][linx black ultra fast-drying ink 1405][20][en-GB].pdf",
+            "1505": "[1505][linx solvent 1505][25][en-GB].pdf",
+            "1506": "[1506][linx solvent 1506][22][en-GB].pdf",
+            "1507": "[1507][linx solvent 1507][7][en-GB].pdf",
+            "1512": "[1512][linx solvent 1512][26][en-GB].pdf",
+            "1515": "[1515][linx solvent 1515][6][en-GB].pdf",
+            "1517": "[1517][linx solvent 1517][13][en-GB].pdf",
+            "1530": "[1530][linx solvent 1530][13][en-GB].pdf",
+            "1535": "[1535][linx solvent 1535][25][en-GB].pdf",
+            "1540": "[1540][linx solvent 1540][22][en-GB].pdf",
+            "1545": "[1545][linx solvent 1545][11][en-GB].pdf",
+            "1555": "[1555][linx solvent 1555][25][en-GB].pdf",
+            "1558": "[1558][linx solvent 1558][15][en-GB].pdf",
+            "1560": "[1560][linx solvent 1560][21][en-GB].pdf",
+            "1563": "[1563][linx solvent 1563][9][en-GB].pdf",
+            "1565": "[1565][linx solvent 1565][21][en-GB].pdf",
+            "1568": "[1568][linx solvent 1568][9][en-GB].pdf",
+            "1575": "[1575][linx solvent 1575][20][en-GB].pdf",
+            "1577": "[1577][linx solvent 1577][8][en-GB].pdf",
+            "1585": "[1585][linx solvent 1585][11][en-GB].pdf",
+            "1588": "[1588][linx solvent 1588][8][en-GB].pdf",
+            "1590": "[1590][linx solvent 1590][21][en-GB].pdf",
+            "1605": "[1605][linx solvent 1605][19][en-GB].pdf",
+            "1606": "[1606][linx solvent 1606][18][en-GB].pdf",
+            "1705": "[1705][linx solvent 1705][24][en-GB].pdf",
+            "1905": "[1905][linx solvent 1905][5][en-GB].pdf",
+            "1910": "[1910][linx solvent 1910][5][en-GB].pdf",
+            "1990": "[1990][linx solvent 1990][5][en-GB].pdf",
+            "1991": "[1991][linx solvent 1991][5][en-GB].pdf",
+            "1992": "[1992][linx solvent 1992][4][en-GB].pdf",
+            "2035": "[2035][linx black ethanol ink 2035][19][en-GB].pdf",
+            "2040": "[2040][linx blue wetness-indicator ink 2040][12][en-GB].pdf",
+            "2250": "[2250][linx black food-packaging ink 2250][17][en-GB].pdf",
+            "2500": "[2500][linx solvent 2500][20][en-GB].pdf",
+            "2502": "[2502][linx solvent 2502][7][en-GB].pdf",
+            "2505": "[2505][linx solvent 2505][11][en-GB].pdf",
+            "2750": "[2750][linx solvent 2750][17][en-GB].pdf",
+            "3085": "[3085][linx black alcohol-resistant ink 3085][7][en-GB].pdf",
+            "3103": "[3103][linx black mixed base ink 3103][26][en-GB].pdf",
+            "3110": "[3110][linx black mixed base ink 3110][8][en-GB].pdf",
+            "3123": "[3123][linx blue mixed base ink 3123][22][en-GB].pdf",
+            "3124": "[3124][linx green mixed base ink 3124][21][en-GB].pdf",
+            "3160": "[3160][linx clear security ink 3160][15][en-GB].pdf",
+            "3194": "[3194][linx black mixed base ink 3194][6][en-GB].pdf",
+            "3203": "[3203][linx black ink 3203][10][en-GB].pdf",
+            "3240": "[3240][linx black ink 3240][20][en-GB].pdf",
+            "3401": "[3401][linx black ink 3401][14][en-GB].pdf",
+            "3415": "[3415][linx black strong plastic-film ink 3415][7][en-GB].pdf",
+            "3501": "[3501][linx solvent 3501][28][en-GB].pdf",
+            "3560": "[3560][linx solvent 3560][18][en-GB].pdf",
+            "3585": "[3585][linx solvent 3585][7][en-GB].pdf",
+            "3703": "[3703][linx solvent 3703][10][en-GB].pdf",
+            "3710": "[3710][linx solvent 3710][19][en-GB].pdf",
+            "3905": "[3905][linx solvent 3905][11][en-GB].pdf",
+            "3915": "[3915][linx solvent 3915][6][en-GB].pdf",
+            "3994": "[3994][linx solvent 3994][5][en-GB].pdf",
+            "6100": "[6100][linx red food grade ink 6100 fda-type][20][en-GB].pdf",
+            "6120": "[6120][linx blue food grade ink 6120 fda-type][20][en-GB].pdf",
+            "6220": "[6220][linx blue food grade ink 6220 eu-type][20][en-GB].pdf",
+            "6600": "[6600][linx food grade solvent 6600][20][en-GB].pdf",
+            "6650": "[6650][linx food grade solvent 6650][19][en-GB].pdf",
+            "8120": "[8120][linx black ink lc8120][12][en-GB].pdf",
+            "8130": "[8130][linx red ink lc8130][6][en-GB].pdf",
+            "8140": "[8140][linx green ink lc8140][5][en-GB].pdf",
+            "8150": "[8150][linx blue ink lc8150][5][en-GB].pdf",
+            "8520": "[8520][linx black ij ink lc8520][11][en-GB].pdf",
+            "8530": "[8530][linx red ij ink lc8530][9][en-GB].pdf",
+            "8600": "[8600][linx mof black ink lc8600][6][en-GB].pdf",
+            "9003": "[9003][linx black fast dry non porous ink 9003][3][en-GB].pdf",
+            "9004": "[9004][linx black versatile porous ink 9004][8][en-GB].pdf",
+            "9005": "[9005][linx black fast dry semi porous ink 9005][9][en-GB].pdf",
+            "9301": "[9301][linx lx black pigmented gp1 ink 9301][7][en-GB].pdf",
+            "9302": "[9302][linx lx black dye based rd1 ink 9302][9][en-GB].pdf",
+            "9303": "[9303][linx lx black fast dry np2 ink 9303][8][en-GB].pdf",
+            "9400": "[9400][linx black versatile porous ink 9400][3][en-GB].pdf",
+            "9401": "[9401][linx black versatile porous ink 9401][3][en-GB].pdf",
+            "9403": "[9403][linx black versatile hd porous ink 9403][3][en-GB].pdf",
+            "9406": "[9406][linx hp black pigmented pdblk1 ink 9406][7][en-GB].pdf",
+            "9407": "[9407][linx hp black dye wdblk2 ink 9407][7][en-GB].pdf",
+            "9408": "[9408][linx hp black fast dry sdblk4 ink 9408][8][en-GB].pdf",
+            "9500": "[9500][linx tj127 black water-based ink 9500][3][en-GB].pdf",
+            "9501": "[9501][linx tj127 black solvent-based methanol-free ink 9501][4][en-GB].pdf",
+            "9502": "[9502][linx tj127 blue water-based ink 9502][5][en-GB].pdf",
+            "9503": "[9503][linx tj127 red water-based ink 9503][5][en-GB].pdf",
+            "9504": "[9504][linx tj250 black water-based ink 9504][3][en-GB].pdf",
+            "9506": "[9506][linx tj127t black solvent-based ink 9506][5][en-GB].pdf",
+            "9507": "[9507][linx tj250 black solvent-based methanol-free ink 9507][3][en-GB].pdf",
+            "B101": "[b101][linx blending solvent b101][9][en-GB].pdf",
+            "B102": "[b102][linx blending solvent b102][7][en-GB].pdf",
+            "C3712": "[c3712][linx coolant mix fa83712  fa83713][10][en-GB].pdf",
+            "L101": "[l101][linx black ink l101][10][en-GB].pdf",
+            "L102": "[l102][linx black ink l102][8][en-GB].pdf",
+            "M101": "[m101][linx black ink m101 maintenance pack ink l101][9][en-GB].pdf",
+            "M102": "[m102][linx black ink m102 maintenance pack ink l102][8][en-GB].pdf",
+            "W101": "[w101][linx cleaning fluid w101][9][en-GB].pdf",
+            "W102": "[w102][linx cleaning fluid w102][7][en-GB].pdf",
+            "0104": "[0104][linx cleaning fluid 0104][8][en-GB].pdf",
+            "0105": "[0105][linx cleaning fluid 0105][13][en-GB].pdf",
+            "0115": "[0115][linx cleaning fluid 0115][10][en-GB].pdf",
+            "0155": "[0155][linx cleaning fluid 0155][9][en-GB].pdf",
+            "0205": "[0205][linx cleaning fluid 0205][9][en-GB].pdf",
+            "0305": "[0305][linx cleaning fluid 0305][13][en-GB].pdf",
+            "0315": "[0315][linx cleaning fluid 0315][9][en-GB].pdf",
+            "0325": "[0325][linx cleaning fluid 0325][7][en-GB].pdf",
+            "0335": "[0335][linx cleaning fluid 0335][10][en-GB].pdf",
+            "0501": "[0501][linx universal flushing solvent 0501][14][en-GB].pdf",
+            "0581": "[0581][linx clear impulse cleaning fluid 0581][16][en-GB].pdf",
+            "0590": "[0590][linx mof ij flushing fluid 0590][1][en-GB].pdf",
+            "0601": "[0601][linx cleaning fluid 0601][18][en-GB].pdf",
+            "1009": "[1009][linx black pigmented ink 1009][23][en-GB].pdf",
+            "1010": "[1010][linx black ink 1010][29][en-GB].pdf",
+            "1014": "[1014][linx black plastic-adherent ink 1014][28][en-GB].pdf",
+            "1015": "[1015][linx black strong plastic-film ink 1015][7][en-GB].pdf",
+            "1016": "[1016][linx black plastic film ink 1016][24][en-GB].pdf",
+            "1018": "[1018][linx red ink 1018][32][en-GB].pdf",
+            "1033": "[1033][linx blue pigmented ink 1033][13][en-GB].pdf",
+            "1035": "[1035][linx black water-removable ink 1035][28][en-GB].pdf",
+            "1036": "[1036][linx black water-washable ink 1036][6][en-GB].pdf",
+            "1039": "[1039][linx yellow pigmented ink 1039][23][en-GB].pdf",
+            "1043": "[1043][linx opaque blue ink 1043][17][en-GB].pdf",
+            "1053": "[1053][linx blue pigmented ink 1053][9][en-GB].pdf",
+            "1055": "[1055][linx black wet process ink 1055][24][en-GB].pdf",
+            "1056": "[1056][linx black wet process ink 1056][22][en-GB].pdf",
+            "1058": "[1058][linx black bottling ink 1058][17][en-GB].pdf",
+            "1059": "[1059][linx white pigmented ink 1059][28][en-GB].pdf",
+            "1061": "[1061][linx black ultra strong plastic-adherent ink 1061][4][en-GB].pdf",
+            "1062": "[1062][linx black oil-penetrating ink 1062][10][en-GB].pdf",
+            "1063": "[1063][linx black grease-penetrating ink 1063][9][en-GB].pdf",
+            "1065": "[1065][linx black dry glass ink 1065][23][en-GB].pdf",
+            "1068": "[1068][linx black bottling ink 1068][9][en-GB].pdf",
+            "1069": "[1069][linx white pigmented ink 1069][14][en-GB].pdf",
+            "1070": "[1070][linx black alkali-removable ink 1070][21][en-GB].pdf",
+            "1075": "[1075][linx black alcohol-resistant ink 1075][22][en-GB].pdf",
+            "1077": "[1077][linx black retort ink 1077][8][en-GB].pdf",
+            "1079": "[1079][linx yellow pigmented ink 1079][10][en-GB].pdf",
+            "1085": "[1085][linx black ink 1085][11][en-GB].pdf",
+            "1088": "[1088][linx yellow bottling ink 1088][8][en-GB].pdf",
+            "1121": "[1121][linx clear uv-readable ink 1121][23][en-GB].pdf",
+            "1130": "[1130][linx black pe ink 1130][11][en-GB].pdf",
+            "1240": "[1240][linx black fast-drying ink 1240][30][en-GB].pdf",
+            "1243": "[1243][linx blue fast-drying ink 1243][20][en-GB].pdf",
+            "1248": "[1248][linx brown fast-drying ink 1248][11][en-GB].pdf",
+            "1281": "[1281][linx thermochromic purple to pink ink 1281][11][en-GB].pdf",
+            "1290": "[1290][linx thermochromic black to blue ink 1290][22][en-GB].pdf",
+            "1291": "[1291][linx thermochromic black to blue ink 1291][11][en-GB].pdf",
+            "1306": "[1306][linx brilliant white ink 1306][17][en-GB].pdf",
+            "1311": "[1311][linx high-opacity grey ink 1311][19][en-GB].pdf",
+            "1316": "[1316][linx brilliant white ink 1316][11][en-GB].pdf",
+            "1320": "[1320][linx white cable ink 1320][11][en-GB].pdf",
+            "1390": "[1390][linx black general purpose ink 1390][6][en-GB].pdf",
+            "1391": "[1391][linx black condensation resistant ink 1391][5][en-GB].pdf",
+            "TTR": "[090 095 100 105 110 115 120 130 135][linx 090 095 100 105 110 115 120 130  135 series thermal transfer ribbons ttr][9][en-GB].pdf"
+        };
+
+        if (hojas[query]) {
+            const pdfFile = hojas[query];
+            visor.src = pdfFile;
+            link.href = pdfFile;
+            
+            wrapper.style.display = "block";
+            link.style.display = "block";
+            mensaje.style.display = "none";
+        } else {
+            alert("No se encontró el documento para el código: " + query);
+            wrapper.style.display = "none";
+            link.style.display = "none";
+            mensaje.style.display = "block";
+        }
+    }
+</script>
+
+</body>
+</html>
