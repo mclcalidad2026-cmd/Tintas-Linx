@@ -11,7 +11,7 @@
             --bg-light: #f4f7f9;
         }
         
-        /* FIX PARA IOS: Prevenir rebotes y permitir scroll fluido */
+        /* FIX PARA IOS */
         html, body {
             height: 100%;
             margin: 0;
@@ -22,7 +22,6 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* ENCABEZADO */
         header { 
             background: white; 
             padding: 10px 15px; 
@@ -42,12 +41,11 @@
         .slogan-year { font-size: 20px; font-weight: 900; color: var(--mcl-blue); line-height: 1; }
         .slogan-text { font-weight: bold; color: var(--mcl-blue); font-size: 11px; text-transform: uppercase; }
 
-        /* NAVEGACIÓN TOUCH-FRIENDLY */
         nav { 
             background: var(--mcl-blue); 
             display: flex; 
             position: sticky;
-            top: 69px; /* Justo debajo del header */
+            top: 69px; 
             z-index: 999;
             overflow-x: auto;
             white-space: nowrap;
@@ -67,7 +65,6 @@
             color: var(--mcl-green); 
         }
 
-        /* CONTENEDOR */
         .container { 
             padding: 15px;
             box-sizing: border-box;
@@ -78,11 +75,10 @@
         .section { display: none; width: 100%; }
         .section.active { display: block; }
 
-        /* ESTILO PARA VISUALIZACIÓN DE PDF */
         .pdf-wrapper {
             position: relative;
             width: 100%;
-            height: 70vh; /* Altura en móviles */
+            height: 70vh; 
             background: white;
             border-radius: 8px;
             border: 1px solid #ccc;
@@ -91,13 +87,8 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        iframe { 
-            width: 100%; 
-            height: 100%; 
-            border: none;
-        }
+        iframe { width: 100%; height: 100%; border: none; }
 
-        /* BOTÓN PANTALLA COMPLETA (Crucial para móviles) */
         .btn-fullscreen {
             display: block;
             width: 100%;
@@ -122,13 +113,32 @@
             border-bottom: 4px solid var(--mcl-green); 
             box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
         }
+
+        /* --- APARTADO DE INSTRUCCIONES EDITABLE --- */
+        .search-instructions {
+            background: #f0f4f8;
+            border-left: 4px solid var(--mcl-blue);
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 0 4px 4px 0;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+        }
+        .search-instructions strong {
+            color: var(--mcl-blue);
+            display: block;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
         
         .search-group { display: flex; flex-direction: column; gap: 10px; }
 
         input { 
             padding: 14px; width: 100%; border: 2px solid #ddd; border-radius: 5px; 
             font-size: 16px; outline: none; box-sizing: border-box;
-            -webkit-appearance: none; /* Quita estilos por defecto en iOS */
+            -webkit-appearance: none;
         }
         
         .btn-search { 
@@ -136,14 +146,13 @@
             border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px; 
         }
 
-        /* MEDIA QUERIES PARA PC */
         @media (min-width: 768px) {
             header { padding: 15px 50px; }
             .logo-mcl img { height: 70px; }
             .search-group { flex-direction: row; }
             .btn-search { width: 200px; }
             .pdf-wrapper { height: 1000px; }
-            .btn-fullscreen { display: none; } /* Ocultar en PC */
+            .btn-fullscreen { display: none; }
         }
 
         .placeholder-text { color: #888; text-align: center; margin-top: 40px; font-style: italic; }
@@ -171,7 +180,6 @@
     <!-- SECCIÓN POLÍTICA -->
     <div id="p" class="section active">
         <h3 style="color: var(--mcl-blue); margin-top: 0;">Política de Cambios y Devoluciones_clientes</h3>
-        <!-- Link alternativo para iPhone -->
         <a href="Politica de Cambios y Devoluciones_clientes.pdf" target="_blank" class="btn-fullscreen">Abrir Documento Completo ↗</a>
         
         <div class="pdf-wrapper">
@@ -182,8 +190,16 @@
     <!-- SECCIÓN HOJAS DE SEGURIDAD -->
     <div id="h" class="section">
         <div class="search-container">
+            
+            <!-- COMIENZO APARTADO DE INSTRUCCIONES EDITABLE -->
+            <div class="search-instructions">
+                <strong>Instrucciones de búsqueda:</strong>
+                Para localizar la ficha técnica, ingresa únicamente los 4 dígitos numéricos del producto (Ej: 1505) o el código alfanumérico si es un solvente especial (Ej: B101). Presiona ENTER o el botón BUSCAR para visualizar el PDF.
+            </div>
+            <!-- FIN APARTADO DE INSTRUCCIONES EDITABLE -->
+
             <div class="search-group">
-                <input type="text" id="inputSeguridad" placeholder="Ingresa Código de Solvente o Tinta (Ej: 1392, B101)..." onkeyup="if(event.key==='Enter') buscarHoja()">
+                <input type="text" id="inputSeguridad" placeholder="Ingresa Código (Ej: 1392, B101)..." onkeyup="if(event.key==='Enter') buscarHoja()">
                 <button class="btn-search" onclick="buscarHoja()">BUSCAR</button>
             </div>
         </div>
@@ -191,7 +207,6 @@
         <div id="resultadoSeguridad">
             <p id="msgSeguridad" class="placeholder-text">Ingresa el código del producto para visualizar el documento.</p>
             
-            <!-- Link alternativo dinámico para iPhone -->
             <a id="linkExterno" href="#" target="_blank" class="btn-fullscreen" style="display: none;">Ver en Pantalla Completa ↗</a>
             
             <div id="pdfWrapperSeguridad" class="pdf-wrapper" style="display: none;">
@@ -203,7 +218,6 @@
 </div>
 
 <script>
-    // Función para cambiar de pestañas
     function tab(id, btn) {
         window.scrollTo(0, 0);
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -212,7 +226,6 @@
         btn.classList.add('active');
     }
 
-    // Buscador de Hojas de Seguridad
     function buscarHoja() {
         const query = document.getElementById('inputSeguridad').value.trim().toUpperCase();
         const visor = document.getElementById('visorSeguridad');
@@ -220,6 +233,7 @@
         const mensaje = document.getElementById('msgSeguridad');
         const link = document.getElementById('linkExterno');
 
+        // (El listado de hojas se mantiene igual...)
         const hojas = {
             "1392": "[1392][linx black plastic-adherent ink 1392][4][en-GB].pdf",
             "1393": "[1393][linx black retort ink 1393][6][en-GB].pdf",
@@ -381,7 +395,6 @@
             const pdfFile = hojas[query];
             visor.src = pdfFile;
             link.href = pdfFile;
-            
             wrapper.style.display = "block";
             link.style.display = "block";
             mensaje.style.display = "none";
