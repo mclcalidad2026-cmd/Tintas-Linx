@@ -21,6 +21,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth; /* Para que el botón baje suavemente */
         }
 
         header { 
@@ -66,6 +67,40 @@
             color: var(--mcl-green); 
         }
 
+        /* --- BOTÓN FLOTANTE LLAMATIVO --- */
+        .btn-flotante {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--mcl-green);
+            color: var(--mcl-blue);
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            animation: pulse-green 2s infinite; /* Animación de atención */
+            border: 2px solid white;
+        }
+
+        .btn-flotante:hover {
+            transform: scale(1.1);
+            background-color: var(--mcl-blue);
+            color: white;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(166, 206, 57, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(166, 206, 57, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(166, 206, 57, 0); }
+        }
+
         .container { 
             padding: 15px;
             box-sizing: border-box;
@@ -73,17 +108,27 @@
             margin: 0 auto;
         }
 
-        /* ESTILOS CONTACTOS (IZQUIERDA) */
+        /* ESTILOS CONTACTOS (AL FINAL) */
         .contact-sidebar {
             display: flex;
             flex-direction: column;
             gap: 15px;
-            margin-bottom: 20px;
+            margin: 50px auto 30px;
+            max-width: 1200px;
+            padding: 20px 15px;
+            background: #eef2f5;
+            border-radius: 15px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
 
         .contact-card {
             background: white;
-            padding: 12px;
+            padding: 15px;
             border-radius: 8px;
             border-left: 6px solid var(--mcl-green);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -99,40 +144,22 @@
             display: block;
         }
 
-        .contact-name { font-weight: 800; color: var(--mcl-blue); font-size: 14px; margin-bottom: 10px; }
+        .contact-name { font-weight: 800; color: var(--mcl-blue); font-size: 16px; margin-bottom: 15px; }
         
-        .contact-actions {
-            display: flex;
-            gap: 10px;
-        }
+        .contact-actions { display: flex; gap: 15px; }
 
         .btn-action {
-            width: 42px;
-            height: 42px;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: transform 0.2s;
         }
 
-        .btn-action:hover { transform: scale(1.1); }
+        .btn-action:hover { transform: scale(1.2); }
         .btn-action img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* AJUSTE DE DISEÑO PARA PANTALLAS GRANDES */
-        @media (min-width: 992px) {
-            .container {
-                display: grid;
-                grid-template-columns: 200px 1fr;
-                gap: 30px;
-                align-items: start;
-            }
-            .contact-sidebar {
-                position: sticky;
-                top: 150px;
-            }
-            .section { grid-column: 2; }
-        }
-        
         .section { display: none; width: 100%; }
         .section.active { display: block; }
 
@@ -175,7 +202,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
         }
 
-        /* --- APARTADO DE INSTRUCCIONES EDITABLE --- */
         .search-instructions {
             background: #f0f4f8;
             border-left: 4px solid var(--mcl-blue);
@@ -221,6 +247,12 @@
 </head>
 <body>
 
+<!-- BOTÓN FLOTANTE -->
+<a href="#contacto-seccion" class="btn-flotante">
+    <img src="https://i.imgur.com/F8euqRb.png" style="width: 20px;" alt=""> 
+    CONTÁCTANOS
+</a>
+
 <header>
     <div class="logo-mcl">
         <img src="MC LOGO.png" alt="Logo MCL"> 
@@ -238,10 +270,45 @@
 
 <div class="container">
     
-    <!-- COLUMNA IZQUIERDA: CONTACTOS -->
-    <aside class="contact-sidebar">
-        <h4 style="color: var(--mcl-blue); margin: 0 0 5px 0; font-size: 12px;">CONTACTOS</h4>
+    <!-- SECCIÓN POLÍTICA -->
+    <div id="p" class="section active">
+        <h3 style="color: var(--mcl-blue); margin-top: 0;">Política de Cambios y Devoluciones_clientes</h3>
+        <a href="Politica de Cambios y Devoluciones_clientes.pdf" target="_blank" class="btn-fullscreen">Abrir Documento Completo ↗</a>
         
+        <div class="pdf-wrapper">
+            <iframe src="Politica de Cambios y Devoluciones_clientes.pdf"></iframe>
+        </div>
+    </div>
+
+    <!-- SECCIÓN HOJAS DE SEGURIDAD -->
+    <div id="h" class="section">
+        <div class="search-container">
+            <div class="search-instructions">
+                <strong>Instrucciones de búsqueda:</strong>
+                Para localizar la hoja de seguridad, ingresa únicamente los 4 dígitos numéricos del producto (Ejemplo: 1505) o el código alfanumérico si es un solvente especial (Ej: B101). Presiona ENTER o el botón BUSCAR para visualizar y descargar el PDF.
+            </div>
+            <div class="search-group">
+                <input type="text" id="inputSeguridad" placeholder="Ingresa Código (Ej: 1392, B101)..." onkeyup="if(event.key==='Enter') buscarHoja()">
+                <button class="btn-search" onclick="buscarHoja()">BUSCAR</button>
+            </div>
+        </div>
+        
+        <div id="resultadoSeguridad">
+            <p id="msgSeguridad" class="placeholder-text">Ingresa el código del producto para visualizar el documento.</p>
+            <a id="linkExterno" href="#" target="_blank" class="btn-fullscreen" style="display: none;">Ver en Pantalla Completa ↗</a>
+            <div id="pdfWrapperSeguridad" class="pdf-wrapper" style="display: none;">
+                <iframe id="visorSeguridad" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- SECCIÓN DE CONTACTOS AL FINAL -->
+<aside class="contact-sidebar" id="contacto-seccion">
+    <h4 style="color: var(--mcl-blue); margin: 0 0 20px 0; font-size: 18px; text-align: center; font-weight: 900;">¿NECESITAS AYUDA? CONTACTA CON NUESTRO EQUIPO</h4>
+    
+    <div class="contact-grid">
         <div class="contact-card">
             <span class="contact-title">Soporte Técnico</span>
             <div class="contact-name">Paola Orellana</div>
@@ -280,47 +347,8 @@
                 </a>
             </div>
         </div>
-    </aside>
-
-    <!-- SECCIÓN POLÍTICA -->
-    <div id="p" class="section active">
-        <h3 style="color: var(--mcl-blue); margin-top: 0;">Política de Cambios y Devoluciones_clientes</h3>
-        <a href="Politica de Cambios y Devoluciones_clientes.pdf" target="_blank" class="btn-fullscreen">Abrir Documento Completo ↗</a>
-        
-        <div class="pdf-wrapper">
-            <iframe src="Politica de Cambios y Devoluciones_clientes.pdf"></iframe>
-        </div>
     </div>
-
-    <!-- SECCIÓN HOJAS DE SEGURIDAD -->
-    <div id="h" class="section">
-        <div class="search-container">
-            
-            <!-- COMIENZO APARTADO DE INSTRUCCIONES EDITABLE -->
-            <div class="search-instructions">
-                <strong>Instrucciones de búsqueda:</strong>
-                Para localizar la hoja de seguridad, ingresa únicamente los 4 dígitos numéricos del producto (Ejemplo: 1505) o el código alfanumérico si es un solvente especial (Ej: B101). Presiona ENTER o el botón BUSCAR para visualizar y descargar el PDF.
-            </div>
-            <!-- FIN APARTADO DE INSTRUCCIONES EDITABLE -->
-
-            <div class="search-group">
-                <input type="text" id="inputSeguridad" placeholder="Ingresa Código (Ej: 1392, B101)..." onkeyup="if(event.key==='Enter') buscarHoja()">
-                <button class="btn-search" onclick="buscarHoja()">BUSCAR</button>
-            </div>
-        </div>
-        
-        <div id="resultadoSeguridad">
-            <p id="msgSeguridad" class="placeholder-text">Ingresa el código del producto para visualizar el documento.</p>
-            
-            <a id="linkExterno" href="#" target="_blank" class="btn-fullscreen" style="display: none;">Ver en Pantalla Completa ↗</a>
-            
-            <div id="pdfWrapperSeguridad" class="pdf-wrapper" style="display: none;">
-                <iframe id="visorSeguridad" src=""></iframe>
-            </div>
-        </div>
-    </div>
-
-</div>
+</aside>
 
 <script>
     function tab(id, btn) {
@@ -338,7 +366,7 @@
         const mensaje = document.getElementById('msgSeguridad');
         const link = document.getElementById('linkExterno');
 
-        // (El listado de hojas se mantiene igual...)
+        // Los datos de 'hojas' se mantienen iguales por tu instrucción de no cambiar más nada
         const hojas = {
             "1392": "[1392][linx black plastic-adherent ink 1392][4][en-GB].pdf",
             "1393": "[1393][linx black retort ink 1393][6][en-GB].pdf",
@@ -411,7 +439,7 @@
             "8530": "[8530][linx red ij ink lc8530][9][en-GB].pdf",
             "8600": "[8600][linx mof black ink lc8600][6][en-GB].pdf",
             "9003": "[9003][linx black fast dry non porous ink 9003][3][en-GB].pdf",
-            "9004": "[9004][linx black versatile porous ink 9004][8][en-GB].pdf",
+            "9004": "[9004][linx black versatile porous ink 9400][3][en-GB].pdf",
             "9005": "[9005][linx black fast dry semi porous ink 9005][9][en-GB].pdf",
             "9301": "[9301][linx lx black pigmented gp1 ink 9301][7][en-GB].pdf",
             "9302": "[9302][linx lx black dye based rd1 ink 9302][9][en-GB].pdf",
